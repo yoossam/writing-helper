@@ -103,6 +103,43 @@
   --text-3xl--line-height: 1.3;
 }
 
+/*
+ * 넓은 화면에서는 계단을 한 단계씩 올린다(2026-11-26 선생님 "연구소 글자가 너무 작아 보기 힘들다").
+ * 아지트 교사 화면(vibe_agit TeacherDashboard.css 의 html.teacher-scale)과 같은 값·같은 폭 기준.
+ * 위 @theme 값(아지트 원본 계단)은 그대로 두고, 폭이 넓을 때만 같은 변수를 다시 정한다 — `text-*` 클래스가 모두 따라온다.
+ */
+@media (min-width: 1100px) {
+  :root {
+    --text-xs: 0.875rem;
+    --text-sm: 1rem;
+    --text-base: 1.0625rem;
+    --text-lg: 1.2rem;
+    --text-xl: 1.4rem;
+  }
+}
+
+@media (min-width: 1900px) {
+  :root {
+    --text-xs: 0.9375rem;
+    --text-sm: 1.0625rem;
+    --text-base: 1.15rem;
+    --text-lg: 1.3rem;
+    --text-xl: 1.55rem;
+    --text-2xl: 1.7rem;
+  }
+}
+
+@media (min-width: 2300px) {
+  :root {
+    --text-xs: 1rem;
+    --text-sm: 1.15rem;
+    --text-base: 1.25rem;
+    --text-lg: 1.45rem;
+    --text-xl: 1.7rem;
+    --text-2xl: 1.85rem;
+  }
+}
+
 * {
   box-sizing: border-box;
 }
@@ -291,7 +328,7 @@ textarea {
 
 .lab-spelling-lookup__loading {
   color: #fff;
-  font-size: 0.95rem;
+  font-size: var(--text-sm);
   font-weight: 850;
 }
 
@@ -339,7 +376,7 @@ textarea {
 .lab-spelling-lookup__heading h2 {
   margin: 0;
   color: #233d58;
-  font-size: 1.15rem;
+  font-size: var(--text-lg);
   line-height: 1.25;
 }
 
@@ -385,7 +422,7 @@ textarea {
   align-items: center;
   gap: 10px;
   margin: 6px 0 0;
-  font-size: 1rem;
+  font-size: var(--text-base);
 }
 
 .lab-spelling-lookup__correction del {
@@ -399,7 +436,7 @@ textarea {
 .lab-spelling-lookup__promise {
   margin: 14px 0;
   color: #65798d;
-  font-size: 0.8rem;
+  font-size: var(--text-xs);
   font-weight: 700;
   line-height: 1.65;
 }
@@ -408,7 +445,7 @@ textarea {
   display: block;
   margin-bottom: 7px;
   color: #334e68;
-  font-size: 0.8rem;
+  font-size: var(--text-xs);
   font-weight: 850;
 }
 
@@ -426,7 +463,7 @@ textarea {
   border-radius: 12px;
   background: #fff;
   color: #24374a;
-  font-size: 0.95rem;
+  font-size: var(--text-sm);
 }
 
 .lab-spelling-lookup__search input:focus {
@@ -441,7 +478,7 @@ textarea {
   border-radius: 12px;
   background: #315f8b;
   color: #fff;
-  font-size: 0.85rem;
+  font-size: var(--text-xs);
   font-weight: 850;
 }
 
@@ -499,7 +536,7 @@ textarea {
   background: #f8fafc;
   color: #617589;
   text-align: center;
-  font-size: 0.84rem;
+  font-size: var(--text-xs);
   font-weight: 750;
 }
 
@@ -574,7 +611,7 @@ textarea {
 .lab-spelling-lookup__card > p {
   margin: 13px 0 0;
   color: #3f5569;
-  font-size: 0.83rem;
+  font-size: var(--text-xs);
   font-weight: 700;
   line-height: 1.7;
 }
@@ -790,7 +827,7 @@ button:not(:disabled),
   padding-inline: var(--ui-space-5);
   border-radius: var(--ui-radius-sm) var(--ui-radius-sm) 0 0;
   color: var(--ui-ink-muted);
-  font-size: 0.95rem;
+  font-size: var(--text-base);
   font-weight: 800;
   line-height: 1.25;
   letter-spacing: -0.01em;
@@ -1139,7 +1176,7 @@ button:not(:disabled),
 .outline-board__eyebrow {
   color: var(--ui-success);
   font-weight: 800;
-  font-size: 0.9rem;
+  font-size: var(--text-sm);
 }
 
 .outline-board__title {
@@ -1170,18 +1207,18 @@ button:not(:disabled),
 
 .outline-board__count {
   color: var(--ui-ink-strong);
-  font-size: 1.05rem;
+  font-size: var(--text-base);
 }
 
 .outline-board__count strong {
   color: var(--ui-primary);
-  font-size: 1.4rem;
+  font-size: var(--text-xl);
   font-variant-numeric: tabular-nums;
 }
 
 .outline-board__synced {
   color: var(--ui-ink-subtle);
-  font-size: 0.85rem;
+  font-size: var(--text-xs);
   font-variant-numeric: tabular-nums;
   min-height: 1.2em;
 }
@@ -1229,7 +1266,7 @@ button:not(:disabled),
 
 .outline-board__card-name {
   color: var(--ui-ink);
-  font-size: 1.15rem;
+  font-size: var(--text-lg);
   font-weight: 800;
 }
 
@@ -1240,7 +1277,7 @@ button:not(:disabled),
 
 .outline-board__card-preview {
   color: var(--ui-ink-muted);
-  font-size: 0.95rem;
+  font-size: var(--text-sm);
   line-height: 1.5;
   overflow-wrap: anywhere;
 }
@@ -1252,7 +1289,7 @@ button:not(:disabled),
   border-radius: var(--ui-radius-pill);
   background: var(--ui-secondary);
   color: var(--ui-ink-strong);
-  font-size: 0.8rem;
+  font-size: var(--text-xs);
   font-weight: 800;
   vertical-align: middle;
 }
@@ -1298,7 +1335,7 @@ button:not(:disabled),
 
 .outline-viewer__who {
   color: var(--ui-ink);
-  font-size: 1.4rem;
+  font-size: var(--text-xl);
   font-weight: 900;
   text-align: center;
 }
@@ -1339,7 +1376,7 @@ button:not(:disabled),
   border-radius: var(--ui-radius-lg);
   background: var(--ui-primary-soft);
   color: var(--ui-primary-hover);
-  font-size: 1.05rem;
+  font-size: var(--text-base);
   font-weight: 900;
 }
 
@@ -1402,7 +1439,7 @@ button:not(:disabled),
 
 .outline-viewer__fit-note {
   color: var(--ui-warning);
-  font-size: 0.85rem;
+  font-size: var(--text-xs);
   font-weight: 700;
   white-space: nowrap;
 }
@@ -1418,10 +1455,10 @@ button:not(:disabled),
 }
 
 @media (max-width: 767px) {
-  .outline-board__title { font-size: 1.3rem; }
+  .outline-board__title { font-size: var(--text-xl); }
   .outline-board__sync { align-items: flex-start; }
   .outline-board__grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
-  .outline-viewer__who { font-size: 1.1rem; }
+  .outline-viewer__who { font-size: var(--text-lg); }
   .outline-viewer__bar, .outline-viewer__nav { padding: var(--ui-space-2) var(--ui-space-3); }
   .outline-viewer__nav .lab-button { flex: 1; min-width: 0; }
   .outline-viewer__fullscreen { display: none; }
@@ -1459,8 +1496,8 @@ button:not(:disabled),
 .outline-board-link:focus-visible { outline: none; box-shadow: var(--ui-focus-ring); }
 
 .outline-board-link__title { font-weight: 800; color: var(--ui-ink-strong); }
-.outline-board-link__url { font-size: 1.15rem; font-weight: 900; letter-spacing: 0.02em; color: #166534; }
-.outline-board-link__meta { font-size: 0.9rem; font-weight: 700; color: var(--ui-ink-muted); }
+.outline-board-link__url { font-size: var(--text-lg); font-weight: 900; letter-spacing: 0.02em; color: #166534; }
+.outline-board-link__meta { font-size: var(--text-sm); font-weight: 700; color: var(--ui-ink-muted); }
 .outline-board-link__go { margin-left: auto; font-weight: 800; color: #166534; }
 
 .outline-board-link--strip { margin-top: var(--ui-space-3); }
@@ -1488,7 +1525,7 @@ button:not(:disabled),
   border-radius: var(--ui-radius-pill);
   background: var(--ui-ink-muted);
   color: #fff;
-  font-size: 0.8rem;
+  font-size: var(--text-xs);
   font-weight: 800;
 }
 

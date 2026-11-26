@@ -296,7 +296,8 @@ test("연구소 상단 메뉴는 아지트와 같은 모양이다", () => {
    */
   const linkStart = globals.indexOf(".lab-nav-link {");
   const linkStyles = globals.slice(linkStart, globals.indexOf(".lab-nav-link[aria-current=\"page\"]::after", linkStart));
-  assert.match(linkStyles, /font-size:\s*0\.95rem/);
+  // 2026-11-26: 아지트 교사 상단 메뉴가 본문보다 한 단계 크게(넓은 화면 17px) — 연구소도 계단의 base(넓은 화면 17px)
+  assert.match(linkStyles, /font-size:\s*var\(--text-base\)/);
   // 활성은 흰 바탕으로 떠오른다. 연파랑을 칠하지 않는다.
   assert.match(linkStyles, /\[aria-current="page"\]\s*\{[^}]*background:\s*var\(--ui-surface\)/);
   assert.doesNotMatch(linkStyles, /\[aria-current="page"\]\s*\{[^}]*var\(--ui-primary-soft\)/);
