@@ -165,39 +165,56 @@
 }
 
 /*
- * 넓은 화면에서는 계단을 한 단계씩 올린다(2026-11-26 선생님 "연구소 글자가 너무 작아 보기 힘들다").
- * 아지트 교사 화면(vibe_agit TeacherDashboard.css 의 html.teacher-scale)과 같은 값·같은 폭 기준.
- * 위 @theme 값(아지트 원본 계단)은 그대로 두고, 폭이 넓을 때만 같은 변수를 다시 정한다 — `text-*` 클래스가 모두 따라온다.
+ * 넓은 화면에서는 계단을 올린다.
+ *   2026-11-26 ① 선생님 "연구소 글자가 너무 작아 보기 힘들다" → 아지트 교사 화면과 같은 값.
+ *   2026-11-26 ② "여전히 작다, 더 키우자" → 연구소는 읽고 쓰는 화면이 대부분이라 아지트 교사 화면보다 한 단계 더 크게.
+ * 위 @theme 값(아지트 원본 계단)은 그대로 두고, 폭에 따라 같은 변수를 다시 정한다 — `text-*` 클래스가 모두 따라온다.
+ * 폰보다 넓은 태블릿(768px~)도 조금 올린다(교실 태블릿에서 학생이 쓴다).
  */
-@media (min-width: 1100px) {
+@media (min-width: 768px) {
   :root {
     --text-xs: 0.875rem;
-    --text-sm: 1rem;
+    --text-sm: 0.975rem;
     --text-base: 1.0625rem;
     --text-lg: 1.2rem;
     --text-xl: 1.4rem;
+    --text-2xl: 1.6rem;
+  }
+}
+
+@media (min-width: 1100px) {
+  :root {
+    --text-xs: 0.95rem;
+    --text-sm: 1.075rem;
+    --text-base: 1.15rem;
+    --text-lg: 1.3rem;
+    --text-xl: 1.5rem;
+    --text-2xl: 1.75rem;
+    --text-3xl: 2.2rem;
   }
 }
 
 @media (min-width: 1900px) {
   :root {
-    --text-xs: 0.9375rem;
-    --text-sm: 1.0625rem;
-    --text-base: 1.15rem;
-    --text-lg: 1.3rem;
-    --text-xl: 1.55rem;
-    --text-2xl: 1.7rem;
+    --text-xs: 1rem;
+    --text-sm: 1.15rem;
+    --text-base: 1.25rem;
+    --text-lg: 1.4rem;
+    --text-xl: 1.65rem;
+    --text-2xl: 1.9rem;
+    --text-3xl: 2.4rem;
   }
 }
 
 @media (min-width: 2300px) {
   :root {
-    --text-xs: 1rem;
-    --text-sm: 1.15rem;
-    --text-base: 1.25rem;
-    --text-lg: 1.45rem;
-    --text-xl: 1.7rem;
-    --text-2xl: 1.85rem;
+    --text-xs: 1.075rem;
+    --text-sm: 1.25rem;
+    --text-base: 1.35rem;
+    --text-lg: 1.55rem;
+    --text-xl: 1.8rem;
+    --text-2xl: 2.05rem;
+    --text-3xl: 2.6rem;
   }
 }
 
