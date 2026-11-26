@@ -17,11 +17,16 @@ const [globals, layout, nav, dashboard, classPage, roomNew, guide, login, compos
 ]);
 
 test("연구소는 끄적끄적 아지트 공통 디자인 토큰을 사용한다", () => {
-  assert.match(globals, /--ui-primary:\s*#2563eb/);
-  assert.match(globals, /--ui-primary-hover:\s*#1d4ed8/);
-  assert.match(globals, /--ui-page:\s*#f8fafc/);
-  assert.match(globals, /--ui-ink:\s*#0f172a/);
-  assert.match(globals, /--ui-border:\s*#e2e8f0/);
+  // 2026-11-26 아지트 디자인 v2 와 같은 값(아지트 src/styles/design-system.css). 아지트 값을 바꾸면 여기도 같이.
+  for (const [name, value] of [
+    ["ui-primary", "#5b2a86"], ["ui-primary-hover", "#6d3a9c"], ["ui-primary-soft", "#f7f0fd"], ["ui-primary-border", "#dcc8ef"],
+    ["ui-page", "#f8f5f1"], ["ui-surface-muted", "#f3eff3"], ["ui-ink", "#1d1d1d"], ["ui-ink-muted", "#5f5f5f"], ["ui-border", "#e6e3e6"],
+  ]) assert.match(globals, new RegExp(`--${name}:\\s*${value};`), `--${name} 이 아지트 값(${value})과 다르다`);
+  assert.doesNotMatch(globals, /--ui-primary:\s*#2563eb/, "옛 파랑으로 돌아가지 않는다");
+  // 파랑·남색 클래스는 한 곳에서 아지트 보라로(화면마다 고치지 않는다)
+  assert.match(globals, /--color-indigo-600:\s*#6d3a9c;/);
+  assert.match(globals, /--color-blue-600:\s*#6d3a9c;/);
+  assert.match(globals, /--color-gray-200:\s*#e6e3e6;/);
   assert.match(globals, /\.lab-button--primary/);
   assert.match(globals, /:focus-visible/);
   assert.match(globals, /prefers-reduced-motion:\s*reduce/);
@@ -213,7 +218,7 @@ test("교사용 공통 셸은 아지트의 전체 폭과 글자 계단을 따른
 
 test("연구소 상단 메뉴는 PC에서 읽기 쉽고 모바일에서는 넘치지 않는다", () => {
   assert.match(globals, /\.lab-shell__nav\s*\{[\s\S]*?min-height:\s*52px;[\s\S]*?gap:\s*var\(--ui-space-2\)/);
-  assert.match(globals, /\.lab-nav-link\s*\{[\s\S]*?min-height:\s*52px;[\s\S]*?padding-inline:\s*var\(--ui-space-5\);[\s\S]*?font-size:\s*var\(--text-base\)/);
+  assert.match(globals, /\.lab-nav-link\s*\{[\s\S]*?min-height:\s*40px;[\s\S]*?padding-inline:\s*var\(--ui-space-5\);[\s\S]*?font-size:\s*var\(--text-base\)/);
   assert.match(globals, /@media \(max-width:\s*767px\)[\s\S]*?\.lab-shell__nav\s*\{[\s\S]*?gap:\s*var\(--ui-space-1\)/);
   assert.match(globals, /@media \(max-width:\s*767px\)[\s\S]*?\.lab-nav-link\s*\{[\s\S]*?min-height:\s*46px;[\s\S]*?padding-inline:\s*var\(--ui-space-3\);[\s\S]*?font-size:\s*var\(--text-sm\)/);
 });
@@ -288,7 +293,7 @@ test("읽는 문장에는 가장 작은 칸을 쓰지 않는다", () => {
 test("연구소 상단 메뉴는 아지트와 같은 모양이다", () => {
   /*
    * 2026-09-14 지적: 두 앱을 오갈 때 이질감이 있다.
-   * 아지트의 업무 메뉴는 **회색 줄 위에 지금 자리만 흰 바탕으로 떠오르고**, 글자는 0.95rem,
+   * (옛 기록) 아지트의 업무 메뉴는 회색 줄 위에 흰 바탕이었다 — 2026-11-26 디자인 v2 로 채운 보라 알약이 됐다.
    * `아이콘 + 이름` 모양이다. 연구소는 흰 줄에 연파랑이 칠해지고 글자가 1rem, 이름만 있었다.
    *
    * ⚠️ 아지트 쪽 원본은 `vibe_agit/src/components/teacher/TeacherDashboard.jsx` 의 메뉴 항목과
@@ -298,13 +303,13 @@ test("연구소 상단 메뉴는 아지트와 같은 모양이다", () => {
   const linkStyles = globals.slice(linkStart, globals.indexOf(".lab-nav-link[aria-current=\"page\"]::after", linkStart));
   // 2026-11-26: 아지트 교사 상단 메뉴가 본문보다 한 단계 크게(넓은 화면 17px) — 연구소도 계단의 base(넓은 화면 17px)
   assert.match(linkStyles, /font-size:\s*var\(--text-base\)/);
-  // 활성은 흰 바탕으로 떠오른다. 연파랑을 칠하지 않는다.
-  assert.match(linkStyles, /\[aria-current="page"\]\s*\{[^}]*background:\s*var\(--ui-surface\)/);
-  assert.doesNotMatch(linkStyles, /\[aria-current="page"\]\s*\{[^}]*var\(--ui-primary-soft\)/);
-  // 메뉴 줄은 머리말과 다른 층이다.
-  assert.match(globals, /\.lab-shell__nav-wrap \{[^}]*background:\s*var\(--ui-surface-muted\)/);
+  // 2026-11-26 아지트 교사 메뉴(디자인 v2)와 같게: 지금 자리는 주색으로 채운 알약 + 아래 줄, 메뉴 줄은 흰 띠, 머리말은 파스텔.
+  assert.match(linkStyles, /\[aria-current="page"\]\s*\{[^}]*background:\s*var\(--ui-primary\)/);
+  assert.match(linkStyles, /border-radius:\s*var\(--ui-radius-pill\)/);
+  assert.match(globals, /\.lab-shell__nav-wrap \{[^}]*background:\s*var\(--ui-surface\)/);
+  assert.match(globals, /\.lab-shell__chrome \{[^}]*background:\s*var\(--ui-mesh\)/);
   // 아이콘은 뜻을 돕는 장식이라 화면 낭독에서는 숨긴다.
-  assert.match(nav, /<span aria-hidden="true">\{item\.icon\}<\/span>/);
+  assert.match(nav, /<LabIcon name=\{item\.icon\} \/>/); // 2026-11-26 이모지 → 아지트와 같은 선 아이콘(aria-hidden)
 });
 
 test("연구소 본문 글꼴은 아지트와 같은 한글 글꼴을 앞에 둔다", async () => {

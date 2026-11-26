@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { withoutBasePath } from "@/lib/app-path";
+import { LabIcon } from "@/components/lab-icon";
 
 const LAST_CLASS_ID_KEY = "lab_last_active_class_id";
 // 아지트로 나가는 길은 메뉴 줄의 맨 끝, `도움말` 오른쪽에 둔다(2026-10-20 선생님 요청 — 처음엔 사이에 뒀다가 옮김).
@@ -50,10 +51,10 @@ export function DashboardNav() {
    * 보이지 않도록 같은 모양으로 맞춘다. 아이콘은 뜻을 돕는 장식이라 화면 낭독에서는 숨긴다.
    */
   const primaryItems = [
-    { href: homeHref, label: "학급·활동", icon: "🏫", section: "home" as const },
-    { href: "/dashboard/settings", label: "질문 카드", icon: "🗂️", section: "settings" as const },
+    { href: homeHref, label: "학급·활동", icon: "home" as const, section: "home" as const },
+    { href: "/dashboard/settings", label: "질문 카드", icon: "cards" as const, section: "settings" as const },
     // 도움말은 상단에 둔다 — 학급 안에서 활동을 만드는 자리에서도 열려야 한다(2026-08-20).
-    { href: "/dashboard/guide", label: "도움말", icon: "❓", section: "guide" as const },
+    { href: "/dashboard/guide", label: "도움말", icon: "help" as const, section: "guide" as const },
   ];
 
   const renderItem = (item: (typeof primaryItems)[number]) => {
@@ -65,7 +66,7 @@ export function DashboardNav() {
         className="lab-nav-link"
         aria-current={active ? "page" : undefined}
       >
-        <span aria-hidden="true">{item.icon}</span>
+        <LabIcon name={item.icon} />
         {item.label}
       </Link>
     );
@@ -75,7 +76,7 @@ export function DashboardNav() {
     <nav className="lab-shell__nav" aria-label="연구소 주요 메뉴">
       {primaryItems.map(renderItem)}
       <a className="lab-nav-link lab-nav-link--exit" href={AGIT_HOME_URL}>
-        <span aria-hidden="true">↩</span>
+        <LabIcon name="back" />
         아지트로 돌아가기
       </a>
     </nav>
@@ -111,7 +112,7 @@ export function DashboardBrandLink() {
 
   return (
     <Link href={homeHref} className="lab-brand" aria-label="글쓰기 연구소 대시보드">
-      <span className="lab-brand__mark" aria-hidden="true">✏️</span>
+      <span className="lab-brand__mark" aria-hidden="true"><LabIcon name="write" size="1em" /></span>
       <span>
         <span className="lab-brand__eyebrow">끄적끄적 아지트</span>
         <span className="lab-brand__title">글쓰기 연구소</span>
