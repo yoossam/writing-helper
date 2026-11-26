@@ -8,19 +8,20 @@ import "./globals.css";
  *
  * 아지트 원본은 `vibe_agit/src/assets/fonts/a2z/` 와 `design-system.css` 의 `--ui-font-sans` 다.
  * 두 저장소가 따로라 같은 파일을 복사해 두었다 — 아지트 글꼴을 바꾸면 여기 파일과 이 선언도 같이 바꾼다.
- * 아지트가 쓰는 굵기(400~900)를 모두 둔다 — 굵기가 없으면 브라우저가 억지로 굵게 그린다.
+ * 굵기는 범위로 이어 빈 굵기가 없게 한다 — 굵기가 없으면 브라우저가 억지로 굵게 그린다.
  */
 const a2z = localFont({
   variable: "--font-ui-sans",
   display: "swap",
   preload: false, // 굵기 6개(각 약 115KB)를 미리 다 받지 않고, 화면에 쓰인 굵기만 받는다(아지트와 같게)
+  // 굵기 한 단계 낮춤(2026-11-26 선생님) — 아지트 design-system.css 의 @font-face 범위와 같은 연결표.
+  // 500 이하 → 4 Regular · 600 → 5 Medium · 700 → 6 SemiBold · 800 → 7 Bold · 900 → 8 ExtraBold
   src: [
-    { path: "./fonts/a2z/a2z-400.woff2", weight: "400", style: "normal" },
-    { path: "./fonts/a2z/a2z-500.woff2", weight: "500", style: "normal" },
-    { path: "./fonts/a2z/a2z-600.woff2", weight: "600", style: "normal" },
-    { path: "./fonts/a2z/a2z-700.woff2", weight: "700", style: "normal" },
-    { path: "./fonts/a2z/a2z-800.woff2", weight: "800", style: "normal" },
-    { path: "./fonts/a2z/a2z-900.woff2", weight: "900", style: "normal" },
+    { path: "./fonts/a2z/a2z-400.woff2", weight: "1 500", style: "normal" },
+    { path: "./fonts/a2z/a2z-500.woff2", weight: "501 600", style: "normal" },
+    { path: "./fonts/a2z/a2z-600.woff2", weight: "601 700", style: "normal" },
+    { path: "./fonts/a2z/a2z-700.woff2", weight: "701 800", style: "normal" },
+    { path: "./fonts/a2z/a2z-800.woff2", weight: "801 1000", style: "normal" },
   ],
 });
 

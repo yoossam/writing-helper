@@ -322,9 +322,12 @@ test("연구소 본문 글꼴은 아지트와 같은 한글 글꼴을 앞에 둔
   assert.doesNotMatch(layoutSource, /Noto_Sans_KR/);
   assert.doesNotMatch(layoutSource, /const\s+geistSans/);
   // 아지트가 쓰는 굵기를 그대로 받아야 같은 900 이 같은 모양으로 나온다.
-  for (const weight of ["400", "500", "600", "700", "800", "900"]) {
-    assert.ok(layoutSource.includes(`"${weight}"`), `본문 글꼴에 ${weight} 굵기가 없다`);
+  // 굵기 한 단계 낮춤(2026-11-26): 범위가 1~1000 을 빈틈없이 덮고, 900 은 8 ExtraBold 로 간다.
+  for (const range of ["1 500", "501 600", "601 700", "701 800", "801 1000"]) {
+    assert.ok(layoutSource.includes(`"${range}"`), `본문 글꼴에 ${range} 굵기 범위가 없다`);
   }
+  assert.match(layoutSource, /a2z-800\.woff2", weight: "801 1000"/);
+  assert.doesNotMatch(layoutSource, /a2z-900/);
   assert.match(globals, /font-family: var\(--font-ui-sans\), "A2Z", "Noto Sans KR"/);
 });
 
