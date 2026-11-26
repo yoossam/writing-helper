@@ -230,7 +230,7 @@ body {
   min-width: 320px;
   background: var(--ui-page);
   color: var(--ui-ink);
-  font-family: var(--font-ui-sans), "Noto Sans KR", Pretendard, Inter, system-ui, sans-serif;
+  font-family: var(--font-ui-sans), "A2Z", "Noto Sans KR", Pretendard, Inter, system-ui, sans-serif;
 }
 
 a,

@@ -1,20 +1,27 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Noto_Sans_KR } from "next/font/google";
+import { Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
 /*
- * 본문 글꼴을 아지트와 맞춘다(2026-08-24).
+ * 본문 글꼴을 아지트와 맞춘다 — 에이투지체(A2Z, SIL OFL 1.1, 사용 조건 fonts/a2z/OFL.txt, 2026-11-26).
  *
- * 예전에는 Geist 를 앞에 뒀는데 Geist 에는 한글 글리프가 없어 한글만 Noto Sans KR 로 넘어갔다.
- * 그래서 한글은 같아 보여도 **숫자와 영문만 두 앱이 다르게** 보였다.
- * 아지트가 쓰는 굵기(400~900)를 그대로 받는다 — 굵기가 없으면 브라우저가 억지로 굵게 그려
- * 같은 900 이라도 모양이 달라진다.
+ * 아지트 원본은 `vibe_agit/src/assets/fonts/a2z/` 와 `design-system.css` 의 `--ui-font-sans` 다.
+ * 두 저장소가 따로라 같은 파일을 복사해 두었다 — 아지트 글꼴을 바꾸면 여기 파일과 이 선언도 같이 바꾼다.
+ * 아지트가 쓰는 굵기(400~900)를 모두 둔다 — 굵기가 없으면 브라우저가 억지로 굵게 그린다.
  */
-const notoSansKr = Noto_Sans_KR({
+const a2z = localFont({
   variable: "--font-ui-sans",
-  subsets: ["latin"],
-  weight: ["400", "500", "700", "800", "900"],
   display: "swap",
+  preload: false, // 굵기 6개(각 약 115KB)를 미리 다 받지 않고, 화면에 쓰인 굵기만 받는다(아지트와 같게)
+  src: [
+    { path: "./fonts/a2z/a2z-400.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/a2z/a2z-500.woff2", weight: "500", style: "normal" },
+    { path: "./fonts/a2z/a2z-600.woff2", weight: "600", style: "normal" },
+    { path: "./fonts/a2z/a2z-700.woff2", weight: "700", style: "normal" },
+    { path: "./fonts/a2z/a2z-800.woff2", weight: "800", style: "normal" },
+    { path: "./fonts/a2z/a2z-900.woff2", weight: "900", style: "normal" },
+  ],
 });
 
 const geistMono = Geist_Mono({
@@ -36,7 +43,7 @@ export default function RootLayout({
     <html
       lang="ko"
       suppressHydrationWarning
-      className={`${notoSansKr.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${a2z.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body suppressHydrationWarning className="min-h-full flex flex-col">
         <div className="flex-1">{children}</div>

@@ -316,13 +316,16 @@ test("연구소 본문 글꼴은 아지트와 같은 한글 글꼴을 앞에 둔
   const layoutSource = await readFile("src/app/layout.tsx", "utf8");
 
   // Geist 에는 한글 글리프가 없다. 앞에 두면 숫자·영문만 아지트와 다르게 보인다.
-  assert.match(layoutSource, /Noto_Sans_KR/);
+  // 2026-11-26 아지트가 에이투지체(A2Z)로 바뀌어 같은 파일을 로컬 글꼴로 담는다.
+  assert.match(layoutSource, /localFont\(/);
+  assert.match(layoutSource, /a2z-400\.woff2/);
+  assert.doesNotMatch(layoutSource, /Noto_Sans_KR/);
   assert.doesNotMatch(layoutSource, /const\s+geistSans/);
   // 아지트가 쓰는 굵기를 그대로 받아야 같은 900 이 같은 모양으로 나온다.
-  for (const weight of ["400", "500", "700", "800", "900"]) {
+  for (const weight of ["400", "500", "600", "700", "800", "900"]) {
     assert.ok(layoutSource.includes(`"${weight}"`), `본문 글꼴에 ${weight} 굵기가 없다`);
   }
-  assert.match(globals, /font-family: var\(--font-ui-sans\), "Noto Sans KR"/);
+  assert.match(globals, /font-family: var\(--font-ui-sans\), "A2Z", "Noto Sans KR"/);
 });
 
 test("학급이 하나뿐인 선생님에게는 `학급 목록` 되돌아가기를 보이지 않는다", () => {
